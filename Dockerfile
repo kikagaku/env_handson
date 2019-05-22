@@ -26,7 +26,13 @@ RUN pip install numpy scipy sklearn pandas matplotlib seaborn flask jupyter
 # OpenCV
 RUN apt-get install -y cmake libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev git
 RUN git clone https://github.com/Itseez/opencv.git \
-    && git clone https://github.com/Itseez/opencv_contrib.git \
-    && cd opencv && mkdir build && cd build && cmake  -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON -DWITH_XINE=ON -DBUILD_EXAMPLES=ON .. \
-    && make -j4 && make install && ldconfig && rm -rf ~/opencv*  # Remove the opencv folders to reduce image size \
-    && ln /dev/null /dev/raw1394
+RUN git clone https://github.com/Itseez/opencv_contrib.git
+RUN cd opencv
+RUN mkdir build
+RUN cd build
+RUN cmake  -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON -DWITH_XINE=ON -DBUILD_EXAMPLES=ON ..
+RUN make -j4
+RUN make install
+RUN ldconfig
+RUN rm -rf ~/opencv*  # Remove the opencv folders to reduce image size
+RUN ln /dev/null /dev/raw1394
