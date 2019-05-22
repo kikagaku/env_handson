@@ -8,13 +8,14 @@ RUN cd /tmp \
     && wget https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tgz \
     && tar zxf Python-3.6.0.tgz \
     && cd Python-3.6.0 \
-    && ./configure \
+    # && ./configure \
+    && ./configure --prefix=/usr/local --with-ensurepip=install \
     && make altinstall
 RUN ln -s /usr/local/bin/python3.6 /usr/local/bin/python \
     && ln -s /usr/local/bin/pip3.6 /usr/local/bin/pip
 
 # Standard packages
-RUN pip install numpy scipy sklearn pandas matplotlib seaborn flask jupyter
+# RUN pip install numpy scipy sklearn pandas matplotlib seaborn flask jupyter
 
 # OpenCV
 # RUN apt-get install -yq wget build-essential gcc zlib1g-dev libtbb2 libtbb-dev \
