@@ -10,7 +10,7 @@ RUN cd /tmp \
     && cd Python-3.6.0 \
     && ./configure \
     && make altinstall \
-    && echo alias python="python3.6" >> ~/.bash_profile
+    && ln -s /usr/bin/python3.6 /usr/bin/python
 
 # # Standard packages
 # RUN pip install numpy scipy pandas matplotlib jupyter
