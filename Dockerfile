@@ -1,8 +1,13 @@
 FROM nvidia/cuda:9.0-cudnn7-runtime-ubuntu16.04
 
 # Python
-RUN apt-get update -y && apt-get install -yq wget build-essential gcc zlib1g-dev \
-    python-dev python-numpy python3 python3-pip python3-dev libtbb2 libtbb-dev \
+RUN RUN apt-get update -y
+RUN apt-get install -y --no-install-recommends build-essential curl \
+    software-properties-common python3-pip \
+    && add-apt-repository -y ppa:jonathonf/python-3.6 \
+    && apt-get update \
+    && apt-get install -y python3.6 python3.6-dev \
+RUN apt-get install -yq wget build-essential gcc zlib1g-dev libtbb2 libtbb-dev \
     libjpeg-dev libjasper-dev libdc1394-22-dev \
     python-opencv libopencv-dev libav-tools python-pycurl \
     libatlas-base-dev gfortran webp qt5-default libvtk6-dev zlib1g-dev
