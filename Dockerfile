@@ -1,7 +1,7 @@
 FROM nvidia/cuda:9.0-cudnn7-runtime-ubuntu16.04
 
 RUN apt-get update -y
-RUN apt-get install -y wget build-essential gcc zlib1g-dev
+RUN apt-get install -y wget build-essential gcc zlib1g-dev libssl-dev
 
 # Python
 RUN cd /tmp \
@@ -9,7 +9,7 @@ RUN cd /tmp \
     && tar zxf Python-3.6.0.tgz \
     && cd Python-3.6.0 \
     # && ./configure \
-    && ./configure --prefix=/usr/local --with-ensurepip=install \
+    && ./configure --prefix=/usr/local --with-openssl=/usr/lib --with-ensurepip=install \
     && make altinstall
 RUN ln -s /usr/local/bin/python3.6 /usr/local/bin/python \
     && ln -s /usr/local/bin/pip3.6 /usr/local/bin/pip
