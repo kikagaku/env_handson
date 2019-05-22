@@ -25,7 +25,7 @@ RUN pip install numpy scipy sklearn pandas matplotlib seaborn flask jupyter
 
 # OpenCV
 RUN apt-get install -y cmake libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev git
-RUN git clone https://github.com/Itseez/opencv.git \
+RUN git clone https://github.com/Itseez/opencv.git
 RUN git clone https://github.com/Itseez/opencv_contrib.git
 RUN cd opencv
 RUN mkdir build
