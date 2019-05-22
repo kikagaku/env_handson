@@ -1,7 +1,8 @@
 FROM nvidia/cuda:9.0-cudnn7-runtime-ubuntu16.04
 
-RUN apt-get update \
-  && apt-get install -y python3-pip python3-dev \
-  && cd /usr/local/bin \
-  && ln -s /usr/bin/python3 python \
-  && pip3 install --upgrade pip
+RUN WORKDIR /root/
+RUN wget https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tgz \
+        && tar zxf Python-3.6.0.tgz \
+        && cd Python-3.6.0 \
+        && ./configure \
+        && make altinstall
