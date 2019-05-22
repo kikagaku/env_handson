@@ -6,4 +6,5 @@ RUN cd /tmp \
         && tar zxf Python-3.6.0.tgz \
         && cd Python-3.6.0 \
         && ./configure \
-        && make altinstall
+        && make altinstall \
+        && echo alias python="python3.6" >> ~/.bash_profile
