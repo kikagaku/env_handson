@@ -10,7 +10,8 @@ RUN cd /tmp \
     && cd Python-3.6.0 \
     && ./configure \
     && make altinstall
-RUN ln -s /usr/local/bin/python3.6 /usr/local/bin/python
+RUN ln -s /usr/local/bin/python3.6 /usr/local/bin/python \
+    && ls -s /usr/local/bin/pip3.6 /usr/local/bin/pip
 
 # Standard packages
 # RUN pip install numpy scipy sklearn pandas matplotlib seaborn flask jupyter
