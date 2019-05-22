@@ -9,12 +9,11 @@ RUN cd /tmp \
     && tar zxf Python-3.6.0.tgz \
     && cd Python-3.6.0 \
     && ./configure \
-    && make altinstall \
-    && ln -s /usr/bin/python3.6 /usr/bin/python
+    && make altinstall
+RUN ln -s /usr/local/bin/python3.6 /usr/local/bin/python
 
-# # Standard packages
-# RUN pip install numpy scipy pandas matplotlib jupyter
-# RUN flask
+# Standard packages
+# RUN pip install numpy scipy sklearn pandas matplotlib seaborn flask jupyter
 
 # OpenCV
 # RUN apt-get install -yq wget build-essential gcc zlib1g-dev libtbb2 libtbb-dev \
