@@ -24,7 +24,7 @@ RUN pip install numpy scipy sklearn pandas matplotlib seaborn flask jupyter
 #     libatlas-base-dev gfortran webp qt5-default libvtk6-dev zlib1g-dev
 
 # OpenCV
-RUN apt-get install -y cmake libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+RUN apt-get install -y cmake libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev git
 RUN git clone https://github.com/Itseez/opencv.git \
     && git clone https://github.com/Itseez/opencv_contrib.git \
     && cd opencv && mkdir build && cd build && cmake  -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON -DWITH_XINE=ON -DBUILD_EXAMPLES=ON .. \
