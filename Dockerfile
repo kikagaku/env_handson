@@ -23,10 +23,10 @@ RUN pip install numpy scipy sklearn pandas matplotlib seaborn flask jupyter
 #     python-opencv libopencv-dev libav-tools python-pycurl \
 #     libatlas-base-dev gfortran webp qt5-default libvtk6-dev zlib1g-dev
 
-# # OpenCV
-# RUN apt-get install -y cmake libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
-# RUN git clone https://github.com/Itseez/opencv.git \
-#     && git clone https://github.com/Itseez/opencv_contrib.git \
-#     && cd opencv && mkdir build && cd build && cmake  -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON -DWITH_XINE=ON -DBUILD_EXAMPLES=ON .. \
-#     && make -j4 && make install && ldconfig && rm -rf ~/opencv*  # Remove the opencv folders to reduce image size \
-#     && ln /dev/null /dev/raw1394
+# OpenCV
+RUN apt-get install -y cmake libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+RUN git clone https://github.com/Itseez/opencv.git \
+    && git clone https://github.com/Itseez/opencv_contrib.git \
+    && cd opencv && mkdir build && cd build && cmake  -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON -DWITH_XINE=ON -DBUILD_EXAMPLES=ON .. \
+    && make -j4 && make install && ldconfig && rm -rf ~/opencv*  # Remove the opencv folders to reduce image size \
+    && ln /dev/null /dev/raw1394
