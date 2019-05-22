@@ -1,7 +1,7 @@
 FROM nvidia/cuda:9.0-cudnn7-runtime-ubuntu16.04
 
 # Python
-RUN RUN apt-get update -y
+RUN apt-get update -y
 RUN apt-get install -y --no-install-recommends build-essential curl \
     software-properties-common python3-pip \
     && add-apt-repository -y ppa:jonathonf/python-3.6 \
