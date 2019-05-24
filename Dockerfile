@@ -4,35 +4,43 @@ RUN apt-get update -y
 RUN apt-get install -y wget build-essential gcc zlib1g-dev libssl-dev
 
 # Python
-RUN cd /tmp \
-    && wget https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tgz \
-    && tar zxf Python-3.6.0.tgz \
-    && cd Python-3.6.0 \
-    && ./configure --prefix=/usr/local --with-openssl=/usr/lib --with-ensurepip=install \
-    && make altinstall
-RUN ln -s /usr/local/bin/python3.6 /usr/local/bin/python \
-    && ln -s /usr/local/bin/pip3.6 /usr/local/bin/pip
+RUN apt-get install -y python3-pip python3-dev git libhdf5-dev
+
+RUN ln -s /usr/bin/python3 /usr/bin/python \
+    && ln -s /usr/bin/pip3 /usr/bin/pip
 
 # Standard packages
 RUN pip install -U pip
 RUN pip install numpy scipy sklearn pandas matplotlib seaborn flask jupyter
 
 # OpenCV
-# RUN apt-get install -yq wget build-essential gcc zlib1g-dev libtbb2 libtbb-dev \
-#     libjpeg-dev libjasper-dev libdc1394-22-dev \
-#     python-opencv libopencv-dev libav-tools python-pycurl \
-#     libatlas-base-dev gfortran webp qt5-default libvtk6-dev zlib1g-dev
+RUN apt-get install -y libopencv-dev
+RUN pip install opencv-python
+RUN pip install opencv-contrib-python
 
-# OpenCV
-RUN apt-get install -y cmake libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev git
-RUN git clone https://github.com/Itseez/opencv.git
-RUN git clone https://github.com/Itseez/opencv_contrib.git
-RUN cd opencv
-RUN mkdir build
-RUN cd build
-RUN cmake  -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON -DWITH_XINE=ON -DBUILD_EXAMPLES=ON ..
-RUN make -j4
-RUN make install
-RUN ldconfig
-RUN rm -rf ~/opencv*  # Remove the opencv folders to reduce image size
-RUN ln /dev/null /dev/raw1394
+# MeCab
+RUN cd /tmp \
+    && wget "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE" -O mecab.tar.gz \
+    && tar zxvf mecab.tar.gz \
+    && cd mecab-0.996 \
+    && ./configure \
+    && make \
+    && make install
+RUN pip install mecab-python3
+RUN apt-get update
+RUN apt-get install -y curl sudo
+RUN cd /tmp \
+    && git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git \
+    && cd mecab-ipadic-neologd \
+    && ./bin/install-mecab-ipadic-neologd -n -y
+COPY mecabrc /usr/local/etc/mecabrc
+RUN cat /usr/local/etc/mecabrc
+RUN echo 'export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"' >> ~/.bash_profile
+
+# Jupyter Notebook
+RUN apt-get install -y vim
+RUN jupyter notebook --generate-config
+COPY jupyter_notebook_config.py /root/.jupyter/jupyter_notebook_config.py
+
+RUN mkdir /work
+ENTRYPOINT cd /work && jupyter notebook
